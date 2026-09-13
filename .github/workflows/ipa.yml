@@ -7,6 +7,10 @@ on:
         description: "Direct URL of the decrypted IPA"
         required: true
         type: string
+      tgextra_url:
+        description: "Direct URL of the tgextra"
+        required: true
+        type: string
 
 jobs:
   prepareDependencies:
@@ -41,11 +45,17 @@ jobs:
           echo "ipa_bundle_id=$IPA_BUNDLE_ID" >> "$GITHUB_OUTPUT"
           echo "ipa_version=$IPA_VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Download latest TGExtra
+      # - name: Download latest TGExtra
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     gh release download --repo shy1248/TGExtra --pattern 'com.choco.tg_*_iphoneos-arm.deb' --dir .
+
+      - name: Download tgextra
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEB_URL: ${{ inputs.tgextra_url }}
         run: |
-          gh release download --repo shy1248/TGExtra --pattern 'com.choco.tg_*_iphoneos-arm.deb' --dir .
+          curl -L -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" "$DEB_URL"
 
       - name: Extract TGExtra version
         id: extractTGExtra
