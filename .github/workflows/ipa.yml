@@ -55,7 +55,7 @@ jobs:
         env:
           DEB_URL: ${{ inputs.tgextra_url }}
         run: |
-          curl -L -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" -o com.choco.tg_229_1.7.8_iphoneos-arm.deb "$DEB_URL"
+          curl -L -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" -o com.choco.tg_1.7.8_iphoneos-arm.deb "$DEB_URL"
 
       - name: Extract TGExtra version
         id: extractTGExtra
